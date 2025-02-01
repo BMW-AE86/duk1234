@@ -1,6 +1,8 @@
 import smtplib
 import dns.resolver
 from fpdf import FPDF
+from flask import Flask, send_file
+from io import BytesIO
 
 # Allowed email domains
 ALLOWED_DOMAINS = {"gmail.com", "icloud.com", "hotmail.com", "outlook.com", "yahoo.com"}
@@ -77,19 +79,33 @@ def validate_emails_from_file(file_path):
 
     return valid_emails, invalid_emails
 
-# Path to the email list file
-file_path = 'list.txt'
+# Create Flask app
+app = Flask(__name__)
 
-# Validate the emails from the file
-valid, invalid = validate_emails_from_file(file_path)
+# Route to generate and download the PDF
+@app.route('/generate_pdf')
+def generate_pdf():
+    # Path to the email list file
+    file_path = 'list.txt'
 
-# Generate PDF report
-pdf_filename = "valid_emails1.pdf"
-pdf = FPDF()
-pdf.add_page()
-pdf.set_font("Arial", size=12)
+    # Validate the emails from the file
+    valid, invalid = validate_emails_from_file(file_path)
 
-for item in valid:
-    pdf.cell(200, 10, txt=item, ln=True, align='L')
-pdf.output("/app/valid_emails1.pdf")
+    # Generate PDF report in memory
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
 
+    for item in valid:
+        pdf.cell(200, 10, txt=item, ln=True, align='L')
+
+    # Store the PDF in memory using BytesIO
+    pdf_output = BytesIO()
+    pdf.output(pdf_output)
+    pdf_output.seek(0)
+
+    # Send the PDF as a response to the user for download
+    return send_file(pdf_output, as_attachment=True, download_name="valid_emails1.pdf", mimetype="application/pdf")
+
+if __name__ == '__main__':
+    app.run(debug=True)
