@@ -1,6 +1,7 @@
 import smtplib 
 import dns.resolver 
 from fpdf import FPDF
+import boto3
 
 
 
