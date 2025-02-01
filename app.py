@@ -108,4 +108,4 @@ def generate_pdf():
     return send_file(pdf_output, as_attachment=True, download_name="valid_emails1.pdf", mimetype="application/pdf")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=False)
