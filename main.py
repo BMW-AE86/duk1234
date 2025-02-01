@@ -84,10 +84,14 @@ file_path = 'list.txt'
 valid, invalid = validate_emails_from_file(file_path)
 
 # Generate PDF report
+pdf_filename = "valid_emails1.pdf"
 pdf = FPDF()
 pdf.add_page()
 pdf.set_font("Arial", size=12)
 
 for item in valid:
     pdf.cell(200, 10, txt=item, ln=True, align='L')
-pdf.output("valid_emails1.pdf")
+pdf.output(pdf_filename)
+
+# Generate a download link
+print(f"Download your PDF report here: <a href='{pdf_filename}' target='_blank'>{pdf_filename}</a>")
