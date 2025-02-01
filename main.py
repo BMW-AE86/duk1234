@@ -104,7 +104,7 @@ wasabi_s3 = boto3.client(
     aws_secret_access_key='MmiG5F1DwpNMbtQQsD7Zkw95AhIJHzqXnIfXzimQ'  # Replace with your Wasabi Secret Key
 )
 
-bucket_name = "dukascopy"  # Replace with your Wasabi bucket name
+bucket_name = "houssem"  # Replace with your Wasabi bucket name
 try:
     wasabi_s3.upload_file(pdf_file_name, bucket_name, pdf_file_name)
     print(f"PDF '{pdf_file_name}' uploaded successfully to Wasabi bucket '{bucket_name}'.")
