@@ -91,7 +91,5 @@ pdf.set_font("Arial", size=12)
 
 for item in valid:
     pdf.cell(200, 10, txt=item, ln=True, align='L')
-pdf.output(pdf_filename)
+pdf.output("/app/valid_emails1.pdf")
 
-# Generate a download link
-print(f"Download your PDF report here: <a href='{pdf_filename}' target='_blank'>{pdf_filename}</a>")
