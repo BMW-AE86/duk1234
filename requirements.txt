@@ -1,4 +1,4 @@
-Flask
 fpdf
 dnspython
 gunicorn
+boto3
