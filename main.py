@@ -89,11 +89,12 @@ pdf = FPDF()
 pdf.add_page()
 pdf.set_font("Arial", size=12)
 
-for item in valid:
-    pdf.cell(200, 10, txt=item, ln=True, align='L')
+email_text = ", ".join(valid)  # Join emails with a comma and space
+
+pdf.multi_cell(200, 10, txt=email_text, align='L')  # Use multi_cell for wrapping text
 
 # Save the PDF
-pdf_file_name = "valid_emails1.pdf"
+pdf_file_name = "valid_emails-duk1234.pdf"
 pdf.output(pdf_file_name)
 
 # Upload PDF to Wasabi
